@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-account-table
+      author: Maks Laptsev
+      changes:
+        - createTable:
+            tableName: account
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: iban
+                  type: VARCHAR(35)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: amount
+                  type: NUMERIC(30,10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency_code
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: open_date
+                  type: date
+              - column:
+                  name: main_acc
+                  type: BOOLEAN
+              - column:
+                  name: customer_id
+                  type: VARCHAR(50)
+              - column:
+                  name: customer_type
+                  type: VARCHAR(15)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rate
+                  type: NUMERIC(4,2)

@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-account-table
+      author: Maks Laptsev
+      changes:
+        - createTable:
+            tableName: card
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: card_number
+                  type: VARCHAR(30)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: iban
+                  type: VARCHAR(35)
+              - column:
+                  name: customer_id
+                  type: VARCHAR(50)
+              - column:
+                  name: customer_type
+                  type: VARCHAR(15)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cardholder
+                  type: VARCHAR(40)
+              - column:
+                  name: card_status
+                  type: VARCHAR(15)
+              - column:
+                  name: account_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: account_fk
+                    referencedTableName: account
+                    referencedColumnNames: id
