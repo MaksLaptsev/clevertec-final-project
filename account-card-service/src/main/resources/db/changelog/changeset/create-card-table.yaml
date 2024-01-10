@@ -36,10 +36,3 @@ databaseChangeLog:
               - column:
                   name: card_status
                   type: VARCHAR(15)
-              - column:
-                  name: account_id
-                  type: bigint
-                  constraints:
-                    foreignKeyName: account_fk
-                    referencedTableName: account
-                    referencedColumnNames: id

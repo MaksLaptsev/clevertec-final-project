@@ -1,3 +1,5 @@
+server:
+  port: 0
 spring:
   application:
     name: account-card-service
@@ -23,8 +25,14 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
+  rabbitmq:
+    addresses: amqp://admin:admin@localhost:5672
+    listener:
+      simple:
+        acknowledge-mode: auto
+        prefetch: 1
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-    enabled: false
+    enabled: true

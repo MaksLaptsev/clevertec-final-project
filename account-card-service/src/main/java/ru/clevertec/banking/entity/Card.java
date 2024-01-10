@@ -14,11 +14,13 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @UniqueElements
     private String cardNumber;
     private String iban;
     private String customerId;
     private String customerType;
     private String cardholder;
     private String cardStatus;
+    @ManyToOne
+    @JoinColumn(name = "iban", referencedColumnName = "iban",insertable = false,updatable = false)
+    private Account account;
 }

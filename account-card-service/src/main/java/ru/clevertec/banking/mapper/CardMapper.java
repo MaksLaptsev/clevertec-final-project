@@ -10,13 +10,21 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CardMapper {
-    Card toCardSave(CardRequest request);
 
-    Card toCardUpdate(CardRequestForUpdate request);
+    @Mapping(target = "cardNumber",source = "request.card_number")
+    @Mapping(target = "customerId",source = "request.customer_id")
+    @Mapping(target = "customerType",source = "request.customer_type")
+    @Mapping(target = "cardStatus",source = "request.card_status")
+    Card fromRequest(CardRequest request);
 
+    @Mapping(target = "card_number",source = "card.cardNumber")
+    @Mapping(target = "customer_id",source = "card.customerId")
+    @Mapping(target = "customer_type",source = "card.customerType")
+    @Mapping(target = "card_status",source = "card.cardStatus")
     CardResponse toResponse(Card card);
 
-    List<CardResponse> toListOfResponse(List<Card> cards);
+
+    List<CardResponse> toListResponse(List<Card> cards);
 
     @Mapping(target = "card.customerType", source = "request.customer_type",
             nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

@@ -9,8 +9,14 @@ import java.util.List;
 
 public interface CardService {
     CardResponse findById(Long id);
+
     List<CardResponse> findAll(Pageable pageable);
-    CardResponse save (CardRequest request);
-    CardResponse update (CardRequestForUpdate request);
-    void deleteById (Long id);
+
+    CardResponse save(CardRequest request);
+
+    CardResponse update(CardRequestForUpdate request);
+
+    void deleteById(Long id);
+
+    List<CardResponse> findByCustomer(String uuid);
 }

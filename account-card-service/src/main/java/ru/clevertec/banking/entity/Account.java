@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JoinFormula;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 @Data
 @AllArgsConstructor
@@ -19,7 +21,6 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @UniqueElements
     private String iban;
     private BigDecimal amount;
     private String currencyCode;
@@ -28,7 +29,6 @@ public class Account {
     private String customerId;
     private String customerType;
     private BigDecimal rate;
-    @OneToMany
-    @JoinColumn(name = "account_id")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
     private List<Card> cards;
 }
