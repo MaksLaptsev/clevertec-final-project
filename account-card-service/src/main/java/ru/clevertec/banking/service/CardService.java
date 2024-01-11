@@ -1,6 +1,7 @@
 package ru.clevertec.banking.service;
 
 import org.springframework.data.domain.Pageable;
+import ru.clevertec.banking.dto.card.CardCurrencyResponse;
 import ru.clevertec.banking.dto.card.CardRequest;
 import ru.clevertec.banking.dto.card.CardRequestForUpdate;
 import ru.clevertec.banking.dto.card.CardResponse;
@@ -19,4 +20,10 @@ public interface CardService {
     void deleteById(Long id);
 
     List<CardResponse> findByCustomer(String uuid);
+
+    List<CardResponse> findByIban(String iban);
+
+    CardCurrencyResponse findByCardNumber(String cardNumber);
+
+    void deleteByCardNumber(String cardNumber);
 }

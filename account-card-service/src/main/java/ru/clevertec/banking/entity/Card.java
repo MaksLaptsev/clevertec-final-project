@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.UniqueElements;
 
 @Data
 @AllArgsConstructor
@@ -21,6 +20,6 @@ public class Card {
     private String cardholder;
     private String cardStatus;
     @ManyToOne
-    @JoinColumn(name = "iban", referencedColumnName = "iban",insertable = false,updatable = false)
+    @JoinColumn(name = "iban", referencedColumnName = "iban", insertable = false, updatable = false)
     private Account account;
 }

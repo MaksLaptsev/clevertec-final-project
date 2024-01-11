@@ -1,12 +1,11 @@
 package ru.clevertec.banking.dto.card;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import ru.clevertec.banking.dto.validator.CardValidation;
 
-
+@CardValidation
 public record CardRequest(
         @NotNull(message = "The card_number cannot be empty")
         @JsonProperty("card_number")

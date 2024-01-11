@@ -19,6 +19,7 @@ public interface AccountMapper {
     @Mapping(target = "customer_id", source = "account.customerId")
     @Mapping(target = "customer_type", source = "account.customerType")
     @Mapping(target = "cards", source = "cards")
+    @Mapping(target = "iban_readable", expression = "java(account.getIban().replaceAll(\"(.{4})(?=.{4})\",\"$1 \"))")
     AccountWithCardResponse toResponseWithCards(Account account, List<Card> cards);
 
     @Mapping(target = "currency_code", source = "account.currencyCode")
@@ -26,6 +27,7 @@ public interface AccountMapper {
     @Mapping(target = "main_acc", source = "account.mainAcc")
     @Mapping(target = "customer_id", source = "account.customerId")
     @Mapping(target = "customer_type", source = "account.customerType")
+    @Mapping(target = "iban_readable", expression = "java(account.getIban().replaceAll(\"(.{4})(?=.{4})\",\"$1 \"))")
     AccountResponse toResponse(Account account);
 
     List<AccountResponse> toListResponse(List<Account> accounts);

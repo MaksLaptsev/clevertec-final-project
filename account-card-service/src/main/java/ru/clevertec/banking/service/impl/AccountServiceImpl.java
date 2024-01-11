@@ -19,10 +19,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
-
     private final AccountRepository repository;
     private final AccountMapper mapper;
-
     private final FilterSpecifications<Account> specifications;
 
     @Override
@@ -34,16 +32,20 @@ public class AccountServiceImpl implements AccountService {
                 .orElseThrow(() -> new RuntimeException("error save account"));
     }
 
-
     @Override
-    public List<AccountResponse> findByIban(String iban) {
-        return mapper.toListResponse(repository.findAll(specifications.filter(null, iban)));
+    public AccountResponse findByIban(String iban) {
+        return Optional.of(repository.findAccountByIban(iban))
+                .map(mapper::toResponse)
+                .orElseThrow(() -> new RuntimeException("Account not found with iban: " + iban));
     }
 
     @Override
-    public List<AccountResponse> findByCustomer(String uuid) {
+    public List<AccountWithCardResponse> findByCustomer(String uuid) {
+        return repository.findAll(specifications.filter(uuid))
+                .stream()
+                .map(account -> mapper.toResponseWithCards(account, account.getCards()))
+                .toList();
 
-        return mapper.toListResponse(repository.findAll(specifications.filter(uuid)));
     }
 
     @Override
@@ -62,5 +64,15 @@ public class AccountServiceImpl implements AccountService {
                 .map(repository::save)
                 .map(mapper::toResponse)
                 .orElseThrow(() -> new RuntimeException("account not update"));
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public void deleteByIban(String iban) {
+        repository.deleteAccountByIban(iban);
     }
 }

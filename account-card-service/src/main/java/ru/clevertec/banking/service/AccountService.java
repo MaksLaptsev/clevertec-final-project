@@ -13,9 +13,13 @@ public interface AccountService {
 
     List<AccountWithCardResponse> getAll(Pageable pageable);
 
-    List<AccountResponse> findByCustomer(String uuid);
+    List<AccountWithCardResponse> findByCustomer(String uuid);
 
-    List<AccountResponse> findByIban(String iban);
+    AccountResponse findByIban(String iban);
 
     AccountResponse update(AccountRequestForUpdate request);
+
+    void deleteById(Long id);
+
+    void deleteByIban(String iban);
 }

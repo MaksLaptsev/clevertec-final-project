@@ -2,16 +2,15 @@ package ru.clevertec.banking.dto.account;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
+import ru.clevertec.banking.dto.validator.AccountValidation;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-
+@AccountValidation
 public record AccountRequest(
         @NotNull(message = "The name account cannot be empty")
         @JsonProperty("name")

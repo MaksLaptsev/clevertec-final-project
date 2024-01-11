@@ -6,5 +6,6 @@ public record CardCurrencyResponse(String card_number,
                                    String customer_id,
                                    String customer_type,
                                    String cardholder,
-                                   String card_status) {
+                                   String card_status,
+                                   Balance card_balance) {
 }

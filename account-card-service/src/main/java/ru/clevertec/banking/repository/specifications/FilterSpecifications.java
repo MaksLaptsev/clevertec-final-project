@@ -12,11 +12,11 @@ import java.util.Optional;
 @Component
 public class FilterSpecifications<T extends Object> {
     public Specification<T> filter(String customerId) {
-        return filter(customerId,null,null);
+        return filter(customerId, null, null);
     }
 
-    public Specification<T> filter(String customerId,String iban) {
-        return filter(customerId,iban,null);
+    public Specification<T> filter(String customerId, String iban) {
+        return filter(customerId, iban, null);
     }
 
     public Specification<T> filter(String customerId, String iban, String cardNumber) {

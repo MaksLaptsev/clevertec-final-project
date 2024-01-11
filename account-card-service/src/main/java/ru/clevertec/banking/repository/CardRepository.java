@@ -14,4 +14,8 @@ public interface CardRepository extends PagingAndSortingRepository<Card, Long>, 
     Card findCardByCardNumber(String cardNumber);
 
     void deleteById(Long id);
+
+    void deleteCardByCardNumber(String cardNumber);
+
+    boolean existsByCardNumber(String cardNumber);
 }

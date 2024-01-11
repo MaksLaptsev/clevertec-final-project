@@ -20,15 +20,15 @@ public class CardQueueConsumer {
     private final ObjectMapper mapper;
 
     @RabbitListener(queues = "card-info")
-    public void readMessageFromQueue(Message message){
+    public void readMessageFromQueue(Message message) {
         Optional.of(message)
                 .map(Message::getBody)
                 .map(String::new)
-                .map(s->{
+                .map(s -> {
                     try {
                         return mapper.readTree(s);
                     } catch (JsonProcessingException e) {
-                        throw new RuntimeException("uncorrect message: "+s);
+                        throw new RuntimeException("uncorrect message: " + s);
                     }
                 })
                 .map(str -> mapper.convertValue(str, CardRequest.class))
