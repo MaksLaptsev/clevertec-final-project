@@ -3,6 +3,7 @@ package ru.clevertec.banking.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.clevertec.banking.dto.account.AccountRequest;
 import ru.clevertec.banking.dto.account.AccountRequestForUpdate;
 import ru.clevertec.banking.dto.account.AccountResponse;
@@ -18,12 +19,14 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AccountServiceImpl implements AccountService {
     private final AccountRepository repository;
     private final AccountMapper mapper;
     private final FilterSpecifications<Account> specifications;
 
     @Override
+    @Transactional
     public AccountResponse save(AccountRequest request) {
         return Optional.of(request)
                 .map(mapper::fromRequest)
@@ -56,6 +59,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public AccountResponse update(AccountRequestForUpdate request) {
         return Optional.of(request)
                 .map(AccountRequestForUpdate::iban)
@@ -67,11 +71,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public void deleteByIban(String iban) {
         repository.deleteAccountByIban(iban);
     }

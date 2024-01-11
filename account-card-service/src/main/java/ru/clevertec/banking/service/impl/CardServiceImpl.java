@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.clevertec.banking.dto.card.CardCurrencyResponse;
 import ru.clevertec.banking.dto.card.CardRequest;
 import ru.clevertec.banking.dto.card.CardRequestForUpdate;
@@ -21,7 +22,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
+@Transactional(readOnly = true)
 public class CardServiceImpl implements CardService {
     private final CardRepository repository;
     private final CardMapper mapper;
@@ -66,6 +67,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    @Transactional
     public CardResponse save(CardRequest request) {
         return Optional.of(request)
                 .map(mapper::fromRequest)
@@ -75,6 +77,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    @Transactional
     public CardResponse update(CardRequestForUpdate request) {
         return Optional.of(request)
                 .map(CardRequestForUpdate::card_number)
@@ -86,11 +89,13 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public void deleteByCardNumber(String cardNumber) {
         repository.deleteCardByCardNumber(cardNumber);
     }
