@@ -17,7 +17,7 @@ public record CreditRequest(
         @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
                 message = "Invalid customer_id format")
         @JsonProperty("customer_id")
-        UUID customer_id,
+        String customer_id,
         @NotNull
         @JsonProperty("contractNumber")
         String contractNumber,

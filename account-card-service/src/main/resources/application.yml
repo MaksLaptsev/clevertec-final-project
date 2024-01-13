@@ -1,10 +1,8 @@
 server:
   port: 8081
 spring:
-  cache:
-    type:
   application:
-    name: account-card-service
+    name: ACCOUNT-CARD-SERVICE
   profiles:
     active: dev
   datasource:
@@ -41,6 +39,11 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
     enabled: true
 clevertec:
+  rabbit:
+    consumer:
+      queue:
+        account-queue: account_info
+        card-queue: card-info
   feign:
     service:
       currency-client: "CURRENCY-SERVICE"

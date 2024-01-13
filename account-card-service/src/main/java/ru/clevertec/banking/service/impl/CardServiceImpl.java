@@ -13,6 +13,7 @@ import ru.clevertec.banking.dto.card.CardRequestForUpdate;
 import ru.clevertec.banking.dto.card.CardResponse;
 import ru.clevertec.banking.entity.Card;
 import ru.clevertec.banking.exception.ResourceCreateException;
+import ru.clevertec.banking.exception.RestApiServerException;
 import ru.clevertec.banking.mapper.CardMapper;
 import ru.clevertec.banking.repository.CardRepository;
 import ru.clevertec.banking.repository.specifications.FilterSpecifications;
@@ -44,15 +45,10 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public CardCurrencyResponse findByCardNumber(String cardNumber) {
-        return Optional.ofNullable(repository.findCardByCardNumber(cardNumber))
-                .map(card -> {
-                    try {
-                        return mapper.toCardWithBalance(card, balanceUtils.getBalance(card));
-                    } catch (JsonProcessingException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .orElseThrow(() -> new ResourceNotFoundException("Card with card_number: %s not found".formatted(cardNumber)));
+        return repository.findCardByCardNumber(cardNumber)
+                .map(card -> mapper.toCardWithBalance(card, balanceUtils.getBalance(card)))
+                .orElseThrow(() -> new ResourceNotFoundException("Card with card_number: %s not found"
+                        .formatted(cardNumber)));
     }
 
     @Override
@@ -77,10 +73,12 @@ public class CardServiceImpl implements CardService {
         return Optional.of(request)
                 .map(CardRequestForUpdate::card_number)
                 .map(repository::findCardByCardNumber)
+                .map(o -> o.orElseThrow(() -> new ResourceNotFoundException("Card with card_number: %s not found"
+                                .formatted(request.card_number()))))
                 .map(card -> mapper.updateFromRequest(request, card))
                 .map(repository::save)
                 .map(mapper::toResponse)
-                .orElseThrow(() -> new ResourceNotFoundException("Card with card_number: %s not found".
+                .orElseThrow(() -> new RestApiServerException("Failed update card with card_number: %s".
                         formatted(request.card_number())));
     }
 

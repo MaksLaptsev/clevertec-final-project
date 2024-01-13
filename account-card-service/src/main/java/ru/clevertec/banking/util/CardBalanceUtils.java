@@ -25,7 +25,7 @@ import java.util.Map;
 public class CardBalanceUtils {
     private final CurrencyRateClient currencyRateApi;
 
-    public Balance getBalance(Card card) throws JsonProcessingException {
+    public Balance getBalance(Card card) {
         ExchangeRateResponse rateResponse = currencyRateApi.getCurrency();
 
         if (card.getAccount() == null) {

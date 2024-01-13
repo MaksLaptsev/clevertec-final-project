@@ -30,11 +30,11 @@ public interface AccountMapper {
     @Mapping(target = "iban_readable", expression = "java(account.getIban().replaceAll(\"(.{4})(?=.{4})\",\"$1 \"))")
     AccountResponse toResponse(Account account);
 
-    List<AccountResponse> toListResponse(List<Account> accounts);
-
     @Mapping(target = "account.mainAcc", source = "request.main_acc",
             nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "account.customerType", source = "request.customer_type",
+            nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "account.name", source = "request.name",
             nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Account updateFromRequest(AccountRequestForUpdate request, @MappingTarget Account account);
 
@@ -44,4 +44,11 @@ public interface AccountMapper {
     @Mapping(target = "customerId", source = "request.customer_id")
     @Mapping(target = "customerType", source = "request.customer_type")
     Account fromRequest(AccountRequest request);
+
+    @Mapping(target = "currencyCode", source = "response.currency_code")
+    @Mapping(target = "openDate", source = "response.open_date")
+    @Mapping(target = "mainAcc", source = "response.main_acc")
+    @Mapping(target = "customerId", source = "response.customer_id")
+    @Mapping(target = "customerType", source = "response.customer_type")
+    Account fromResponse(AccountResponse response);
 }

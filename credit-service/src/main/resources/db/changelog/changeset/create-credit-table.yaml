@@ -32,12 +32,12 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: currency
-                  type: DECIMAL
+                  type: VARCHAR(10)
                   constraints:
                     nullable: false
               - column:
                   name: repayment_date
-                  type: data
+                  type: date
               - column:
                   name: rate
                   type: DECIMAL
@@ -52,7 +52,7 @@ databaseChangeLog:
                   name: possible_repayment
                   type: BOOLEAN
               - column:
-                  name: is_closed
+                  name: closed
                   type: BOOLEAN
               - column:
                   name: customer_type

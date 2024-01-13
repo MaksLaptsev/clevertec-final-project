@@ -26,7 +26,7 @@ public class CreditServiceImpl implements CreditService {
 
     @Transactional
     @Override
-    public CreditResponse create(CreditRequest request) {
+    public CreditResponse save(CreditRequest request) {
         return Optional.of(request)
                 .map(mapper::fromRequest)
                 .map(repository::save)

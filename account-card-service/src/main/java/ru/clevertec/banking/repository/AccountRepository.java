@@ -6,14 +6,11 @@ import ru.clevertec.banking.entity.Account;
 
 import java.util.Optional;
 
-public interface AccountRepository extends PagingAndSortingRepository<Account, Long>, JpaSpecificationExecutor<Account> {
-    Optional<Account> findById(Long id);
+public interface AccountRepository extends PagingAndSortingRepository<Account, String>, JpaSpecificationExecutor<Account> {
 
     Account save(Account account);
 
-    Account findAccountByIban(String iban);
-
-    void deleteById(Long id);
+    Optional<Account> findAccountByIban(String iban);
 
     void deleteAccountByIban(String iban);
 

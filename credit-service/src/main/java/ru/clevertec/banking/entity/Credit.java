@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@SQLDelete(sql = "UPDATE credit SET deleted = true WHERE contractNumber=?")
+@SQLDelete(sql = "UPDATE credit SET deleted = true WHERE contract_number=?")
 @SQLRestriction(value = "deleted = false")
 public class Credit {
     private UUID customerId;
@@ -29,7 +29,7 @@ public class Credit {
     private BigDecimal rate;
     private String iban;
     private boolean possibleRepayment;
-    private boolean isClosed;
+    private boolean closed;
     private String customerType;
     private boolean deleted = Boolean.FALSE;
 }

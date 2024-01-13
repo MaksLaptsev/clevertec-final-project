@@ -9,7 +9,7 @@ import ru.clevertec.banking.dto.CreditResponse;
 import java.util.UUID;
 
 public interface CreditService {
-    CreditResponse create(CreditRequest request);
+    CreditResponse save(CreditRequest request);
 
     Page<CreditResponse> findByCustomer(UUID customerId, Pageable pageable);
 
