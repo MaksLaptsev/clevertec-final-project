@@ -1,9 +1,7 @@
 rootProject.name = 'clevertec-final-project'
 
 include 'logging-starter'
-include 'card-service'
 include 'customer-service'
-include 'account-service'
 include 'currency-service'
 include 'deposit-service'
 include 'credit-service'
@@ -13,4 +11,5 @@ include 'auth-service'
 include 'eureka-server'
 include 'api-gateway'
 include 'cache-starter'
+include 'security-starter'
 

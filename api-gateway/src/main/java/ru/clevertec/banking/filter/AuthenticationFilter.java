@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 import ru.clevertec.banking.util.JwtUtil;
 
 import java.util.Objects;
@@ -15,13 +14,11 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
     private final RouteValidator validator;
     private final JwtUtil jwtUtil;
-//    private final RestTemplate restTemplate;
 
     @Autowired
-    public AuthenticationFilter(RouteValidator validator, RestTemplate restTemplate, JwtUtil jwtUtil) {
+    public AuthenticationFilter(RouteValidator validator, JwtUtil jwtUtil) {
         super(Config.class);
         this.validator = validator;
-//        this.restTemplate = restTemplate;
         this.jwtUtil = jwtUtil;
     }
 
@@ -31,6 +28,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
             if (validator.isSecured().test(exchange.getRequest())) {
                 if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
                     throw new RuntimeException("missing authorization header");
+                    // TODO custom error with 401 response
                 }
 
                 String authHeader = Objects.requireNonNull(exchange.getRequest()
@@ -41,10 +39,9 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                     authHeader = authHeader.substring(7);
                 }
                 try {
-//                    restTemplate.getForObject("http://AUTH-SERVICE//token-validation?token" + authHeader, Void.class);
                     jwtUtil.validateToken(authHeader);
-
                 } catch (Exception e) {
+                    // TODO custom error with 401 response
                     System.out.println("invalid access...!");
                     throw new RuntimeException("un authorized access to application: ", e.getCause());
                 }
