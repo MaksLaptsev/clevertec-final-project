@@ -33,6 +33,21 @@ spring:
           predicates:
             - Path=/cloud-configs/**
 
+        - id: account-card-service
+          uri: lb://ACCOUNT-CARD-SERVICE
+          predicates:
+            - Path=/api/v1/accounts/**
+
+        - id: account-card-service
+          uri: lb://ACCOUNT-CARD-SERVICE
+          predicates:
+            - Path=/api/v1/cards/**
+
+        - id: credit-service
+          uri: lb://CREDIT-SERVICE
+          predicates:
+            - Path=/api/v1/credits/**
+
 
 
   application:

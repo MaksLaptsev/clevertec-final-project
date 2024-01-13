@@ -2,6 +2,7 @@ package ru.clevertec.banking.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/accounts")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class AccountController {
     private final AccountService service;

@@ -1,5 +1,6 @@
 package ru.clevertec.banking.dto.account;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import ru.clevertec.banking.dto.card.CardResponse;
 
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ public record AccountWithCardResponse(String name,
                                       String iban_readable,
                                       BigDecimal amount,
                                       String currency_code,
+                                      @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
                                       LocalDate open_date,
                                       boolean main_acc,
                                       String customer_id,

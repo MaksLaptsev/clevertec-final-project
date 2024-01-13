@@ -1,23 +1,21 @@
 package ru.clevertec.banking.consumer;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
-import ru.clevertec.banking.dto.card.CardRequest;
+import ru.clevertec.banking.dto.card.CardMessage;
 import ru.clevertec.banking.service.CardService;
 
 import java.util.Optional;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CardQueueConsumer {
     private final CardService service;
 
-    @RabbitListener(queues = "card-info")
-    public void readMessageFromQueue(CardRequest message) {
-        Optional.of(message)
+    @RabbitListener(queues = "${clevertec.rabbit.consumer.queue.card-queue}")
+    public void readMessageFromQueue(CardMessage message) {
+        Optional.of(message.payload())
                 .map(service::save);
     }
 }

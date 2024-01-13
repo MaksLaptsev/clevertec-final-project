@@ -2,8 +2,11 @@ package ru.clevertec.banking.dto.card;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
 import ru.clevertec.banking.dto.validator.CardValidation;
+
+import java.util.Map;
 
 @CardValidation
 public record CardRequest(

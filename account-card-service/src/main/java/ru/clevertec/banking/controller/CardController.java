@@ -38,7 +38,7 @@ public class CardController {
         return service.findAll(pageable);
     }
 
-    @GetMapping("/{uuid}")
+    @GetMapping("/by-customer-id/{uuid}")
     public Page<CardResponse> findByCustomer(@PathVariable String uuid, @PageableDefault(sort = {"iban"}) Pageable pageable) {
         return service.findByCustomer(uuid, pageable);
     }

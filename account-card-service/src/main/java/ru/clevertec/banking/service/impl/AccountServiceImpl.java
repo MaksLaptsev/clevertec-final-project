@@ -12,6 +12,7 @@ import ru.clevertec.banking.dto.account.AccountResponse;
 import ru.clevertec.banking.dto.account.AccountWithCardResponse;
 import ru.clevertec.banking.entity.Account;
 import ru.clevertec.banking.exception.ResourceCreateException;
+import ru.clevertec.banking.exception.RestApiServerException;
 import ru.clevertec.banking.mapper.AccountMapper;
 import ru.clevertec.banking.repository.AccountRepository;
 import ru.clevertec.banking.repository.specifications.FilterSpecifications;
@@ -39,7 +40,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountResponse findByIban(String iban) {
-        return Optional.of(repository.findAccountByIban(iban))
+        return repository.findAccountByIban(iban)
                 .map(mapper::toResponse)
                 .orElseThrow(() -> new ResourceNotFoundException("Account with iban: %s not found".formatted(iban)));
     }
@@ -62,11 +63,13 @@ public class AccountServiceImpl implements AccountService {
     public AccountResponse update(AccountRequestForUpdate request) {
         return Optional.of(request)
                 .map(AccountRequestForUpdate::iban)
-                .map(repository::findAccountByIban)
+                .map(this::findByIban)
+                .map(mapper::fromResponse)
                 .map(acc -> mapper.updateFromRequest(request, acc))
                 .map(repository::save)
                 .map(mapper::toResponse)
-                .orElseThrow(() -> new ResourceNotFoundException("Account with iban: %s not found".formatted(request.iban())));
+                .orElseThrow(() -> new RestApiServerException("Failed to update account with iban: %s "
+                        .formatted(request.iban())));
     }
 
     @Override
