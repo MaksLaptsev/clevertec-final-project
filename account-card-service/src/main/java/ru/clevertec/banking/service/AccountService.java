@@ -1,5 +1,6 @@
 package ru.clevertec.banking.service;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ru.clevertec.banking.dto.account.AccountRequest;
 import ru.clevertec.banking.dto.account.AccountRequestForUpdate;
@@ -11,15 +12,13 @@ import java.util.List;
 public interface AccountService {
     AccountResponse save(AccountRequest request);
 
-    List<AccountWithCardResponse> getAll(Pageable pageable);
+    Page<AccountWithCardResponse> getAll(Pageable pageable);
 
-    List<AccountWithCardResponse> findByCustomer(String uuid);
+    Page<AccountWithCardResponse> findByCustomer(String uuid, Pageable pageable);
 
     AccountResponse findByIban(String iban);
 
     AccountResponse update(AccountRequestForUpdate request);
-
-    void deleteById(Long id);
 
     void deleteByIban(String iban);
 }

@@ -4,6 +4,7 @@ package ru.clevertec.banking.controller;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -13,8 +14,6 @@ import ru.clevertec.banking.dto.card.CardRequest;
 import ru.clevertec.banking.dto.card.CardRequestForUpdate;
 import ru.clevertec.banking.dto.card.CardResponse;
 import ru.clevertec.banking.service.CardService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/cards")
@@ -35,18 +34,18 @@ public class CardController {
     }
 
     @GetMapping
-    public List<CardResponse> getAll(@PageableDefault(sort = {"id"}) Pageable pageable) {
+    public Page<CardResponse> getAll(@PageableDefault(sort = {"iban"}) Pageable pageable) {
         return service.findAll(pageable);
     }
 
     @GetMapping("/{uuid}")
-    public List<CardResponse> findByCustomer(@PathVariable String uuid) {
-        return service.findByCustomer(uuid);
+    public Page<CardResponse> findByCustomer(@PathVariable String uuid, @PageableDefault(sort = {"iban"}) Pageable pageable) {
+        return service.findByCustomer(uuid, pageable);
     }
 
     @GetMapping("/by-iban/{iban}")
-    public List<CardResponse> findByIban(@PathVariable String iban) {
-        return service.findByIban(iban);
+    public Page<CardResponse> findByIban(@PathVariable String iban, @PageableDefault(sort = {"iban"}) Pageable pageable) {
+        return service.findByIban(iban, pageable);
     }
 
     @GetMapping("/by-card-number/{cardNumber}")

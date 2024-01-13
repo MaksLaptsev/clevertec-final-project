@@ -7,13 +7,6 @@ databaseChangeLog:
             tableName: account
             columns:
               - column:
-                  name: id
-                  type: bigint
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
                   name: name
                   type: VARCHAR(255)
                   constraints:
@@ -22,6 +15,7 @@ databaseChangeLog:
                   name: iban
                   type: VARCHAR(35)
                   constraints:
+                    primaryKey: true
                     unique: true
                     nullable: false
               - column:
@@ -51,3 +45,6 @@ databaseChangeLog:
               - column:
                   name: rate
                   type: NUMERIC(4,2)
+              - column:
+                  name: deleted
+                  type: BOOLEAN

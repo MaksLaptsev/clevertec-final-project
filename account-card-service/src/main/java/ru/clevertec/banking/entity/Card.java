@@ -4,22 +4,28 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@SQLDelete(sql = "UPDATE card SET deleted = true WHERE card_number=?")
+@SQLRestriction(value = "deleted = false")
 public class Card {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String cardNumber;
     private String iban;
     private String customerId;
     private String customerType;
     private String cardholder;
     private String cardStatus;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "iban", referencedColumnName = "iban", insertable = false, updatable = false)
     private Account account;
+    private boolean deleted = Boolean.FALSE;
 }

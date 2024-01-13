@@ -3,10 +3,12 @@ package ru.clevertec.banking.feign;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ru.clevertec.banking.dto.currencyRate.ExchangeRateResponse;
+import ru.clevertec.banking.feign.config.CustomFeignClientConfiguration;
 
-@FeignClient("${clevertec.feign.service.currency-client}")
+@FeignClient(value = "${clevertec.feign.service.currency-client}", configuration = CustomFeignClientConfiguration.class)
 public interface CurrencyRateClient {
     @RequestMapping(method = RequestMethod.GET, value = "${clevertec.feign.service.currency-get-path}",
             consumes = "application/json")
-    String getCurrency();
+    ExchangeRateResponse getCurrency();
 }

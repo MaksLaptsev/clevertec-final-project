@@ -7,17 +7,10 @@ databaseChangeLog:
             tableName: card
             columns:
               - column:
-                  name: id
-                  type: bigint
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
                   name: card_number
                   type: VARCHAR(30)
                   constraints:
-                    unique: true
+                    primaryKey: true
                     nullable: false
               - column:
                   name: iban
@@ -36,3 +29,6 @@ databaseChangeLog:
               - column:
                   name: card_status
                   type: VARCHAR(15)
+              - column:
+                  name: deleted
+                  type: BOOLEAN

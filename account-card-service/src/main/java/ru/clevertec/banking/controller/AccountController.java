@@ -3,6 +3,7 @@ package ru.clevertec.banking.controller;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -30,13 +31,13 @@ public class AccountController {
     }
 
     @GetMapping
-    public List<AccountWithCardResponse> getAll(@PageableDefault(sort = {"id"}) Pageable pageable) {
+    public Page<AccountWithCardResponse> getAll(@PageableDefault(sort = {"iban"}) Pageable pageable) {
         return service.getAll(pageable);
     }
 
     @GetMapping("/by-customer-id/{uuid}")
-    public List<AccountWithCardResponse> findByCustomer(@PathVariable String uuid) {
-        return service.findByCustomer(uuid);
+    public Page<AccountWithCardResponse> findByCustomer(@PathVariable String uuid,@PageableDefault(sort = {"iban"}) Pageable pageable) {
+        return service.findByCustomer(uuid,pageable);
     }
 
     @GetMapping("/by-iban/{iban}")

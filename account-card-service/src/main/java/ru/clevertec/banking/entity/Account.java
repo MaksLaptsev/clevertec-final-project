@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
+import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,11 +17,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@SQLDelete(sql = "UPDATE account SET deleted = true WHERE iban=?")
+@SQLRestriction(value = "deleted = false")
 public class Account {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String name;
+    @Id
     private String iban;
     private BigDecimal amount;
     private String currencyCode;
@@ -28,4 +32,5 @@ public class Account {
     private BigDecimal rate;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
     private List<Card> cards;
+    private boolean deleted = Boolean.FALSE;
 }

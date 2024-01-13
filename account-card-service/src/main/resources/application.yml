@@ -1,12 +1,14 @@
 server:
-  port: 0
+  port: 8081
 spring:
+  cache:
+    type:
   application:
     name: account-card-service
   profiles:
     active: dev
   datasource:
-    url: jdbc:postgresql://localhost:5555/account-card-service
+    url: jdbc:postgresql://localhost:5555/account-card-service?currentSchema=account_card
     username: admin
     password: admin
     driver-class-name: org.postgresql.Driver
@@ -24,9 +26,11 @@ spring:
     show-sql: true
   liquibase:
     enabled: true
+    default-schema: account_card
     change-log: classpath:db/changelog/db.changelog-master.yaml
+    liquibase-schema: account_card
   rabbitmq:
-    addresses: amqp://admin:admin@localhost:5672
+    addresses: amqp://admin:admin@localhost:5673
     listener:
       simple:
         acknowledge-mode: auto
@@ -39,6 +43,6 @@ eureka:
 clevertec:
   feign:
     service:
-      currency-client: "clientName"
-      currency-get-path: "pathName"
+      currency-client: "CURRENCY-SERVICE"
+      currency-get-path: "/api/v1/currencies"
 
