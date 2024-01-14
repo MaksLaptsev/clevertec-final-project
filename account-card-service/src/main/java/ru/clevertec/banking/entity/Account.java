@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -27,7 +28,7 @@ public class Account {
     private String currencyCode;
     private LocalDate openDate;
     private boolean mainAcc;
-    private String customerId;
+    private UUID customerId;
     private String customerType;
     private BigDecimal rate;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
