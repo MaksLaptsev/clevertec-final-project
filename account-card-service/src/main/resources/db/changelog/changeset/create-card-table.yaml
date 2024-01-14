@@ -17,7 +17,7 @@ databaseChangeLog:
                   type: VARCHAR(35)
               - column:
                   name: customer_id
-                  type: VARCHAR(50)
+                  type: UUID
               - column:
                   name: customer_type
                   type: VARCHAR(15)

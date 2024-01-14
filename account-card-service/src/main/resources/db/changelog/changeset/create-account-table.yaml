@@ -36,7 +36,7 @@ databaseChangeLog:
                   type: BOOLEAN
               - column:
                   name: customer_id
-                  type: VARCHAR(50)
+                  type: UUID
               - column:
                   name: customer_type
                   type: VARCHAR(15)

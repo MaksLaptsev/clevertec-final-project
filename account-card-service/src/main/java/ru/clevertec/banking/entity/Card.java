@@ -9,6 +9,8 @@ import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +21,7 @@ public class Card {
     @Id
     private String cardNumber;
     private String iban;
-    private String customerId;
+    private UUID customerId;
     private String customerType;
     private String cardholder;
     private String cardStatus;
