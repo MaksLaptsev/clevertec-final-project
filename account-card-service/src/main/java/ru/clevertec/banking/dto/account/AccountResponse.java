@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public record AccountResponse(String name,
                               String iban,
@@ -13,7 +14,7 @@ public record AccountResponse(String name,
                               @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
                               LocalDate open_date,
                               boolean main_acc,
-                              String customer_id,
+                              UUID customer_id,
                               String customer_type,
                               BigDecimal rate) {
 }

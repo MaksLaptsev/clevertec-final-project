@@ -1,6 +1,5 @@
 package ru.clevertec.banking.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,7 +32,7 @@ public class CardServiceImpl implements CardService {
     private final FilterSpecifications<Card> specifications;
 
     @Override
-    public List<CardResponse> findByCustomer(String uuid){
+    public List<CardResponse> findByCustomer(String uuid) {
         return repository.findAll(specifications.filter(uuid)).stream()
                 .map(mapper::toResponse)
                 .toList();
@@ -76,7 +75,7 @@ public class CardServiceImpl implements CardService {
                 .map(CardRequestForUpdate::card_number)
                 .map(repository::findCardByCardNumber)
                 .map(o -> o.orElseThrow(() -> new ResourceNotFoundException("Card with card_number: %s not found"
-                                .formatted(request.card_number()))))
+                        .formatted(request.card_number()))))
                 .map(card -> mapper.updateFromRequest(request, card))
                 .map(repository::save)
                 .map(mapper::toResponse)

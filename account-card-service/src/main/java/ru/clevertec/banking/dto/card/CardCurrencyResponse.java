@@ -1,9 +1,11 @@
 package ru.clevertec.banking.dto.card;
 
+import java.util.UUID;
+
 public record CardCurrencyResponse(String card_number,
                                    String card_number_readable,
                                    String iban,
-                                   String customer_id,
+                                   UUID customer_id,
                                    String customer_type,
                                    String cardholder,
                                    String card_status,

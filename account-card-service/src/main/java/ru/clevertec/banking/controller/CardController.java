@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.clevertec.banking.dto.card.CardCurrencyResponse;
@@ -25,37 +26,42 @@ import java.util.List;
 public class CardController {
     private final CardService service;
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER') or authentication.principal.equals(#request.customer_id())" +
+            " and hasRole('ROLE_USER')")
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping
     public CardResponse create(@RequestBody @Valid CardRequest request) {
         return service.save(request);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER') or authentication.principal.equals(" +
+            "@cardServiceImpl.findByCardNumber(#request.card_number()).customer_id()) and hasRole('ROLE_USER')")
     @PatchMapping
     public CardResponse update(@RequestBody @Valid CardRequestForUpdate request) {
         return service.update(request);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER')")
     @GetMapping
     public Page<CardResponse> getAll(@PageableDefault(sort = {"iban"}) Pageable pageable) {
         return service.findAll(pageable);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER') or authentication.principal.equals(#uuid) " +
+            "and hasRole('ROLE_USER')")
     @GetMapping("/by-customer-id/{uuid}")
     public List<CardResponse> findByCustomer(@PathVariable String uuid) {
         return service.findByCustomer(uuid);
     }
 
-    @GetMapping("/by-iban/{iban}")
-    public Page<CardResponse> findByIban(@PathVariable String iban, @PageableDefault(sort = {"iban"}) Pageable pageable) {
-        return service.findByIban(iban, pageable);
-    }
-
+    @PostAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER') or authentication.principal.equals(returnObject.customer_id()) " +
+            "and hasRole('ROLE_USER')")
     @GetMapping("/by-card-number/{cardNumber}")
     public CardCurrencyResponse findByCardNumber(@PathVariable String cardNumber) {
         return service.findByCardNumber(cardNumber);
     }
 
+    @PreAuthorize("hasRole('ROLE_SUPER_USER')")
     @DeleteMapping("/{cardNumber}")
     public void delete(@PathVariable String cardNumber) {
         service.deleteByCardNumber(cardNumber);

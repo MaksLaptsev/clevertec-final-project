@@ -1,8 +1,6 @@
 package ru.clevertec.banking.util;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
@@ -51,7 +49,6 @@ public class CardBalanceUtils {
         } else return curr;
     }
 
-    @SneakyThrows
     private Map<String, String> getBalanceArgs(BigDecimal accountAmount, String mainCurrencyCard, ExchangeRateResponse response) {
         List<ExchangeRateDto> currencyList = response.exchangeRates();
 
