@@ -1,6 +1,8 @@
 server:
   port: ${PORT:8881}
 spring:
+  profiles:
+    active: dev
   application:
     name: AUTH-SERVICE
   datasource:
@@ -28,7 +30,10 @@ spring:
         format_sql: true
         default_schema: ${DEFAULT_SCHEMA:auth}
     database: postgresql
-
+clevertec:
+  rabbit:
+    config:
+      queue-name: auth
 eureka:
   client:
     service-url:
