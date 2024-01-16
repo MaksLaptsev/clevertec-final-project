@@ -1,0 +1,35 @@
+server:
+  port: ${PORT:8881}
+spring:
+  application:
+    name: AUTH-SERVICE
+  datasource:
+    url: jdbc:postgresql://localhost:${DEV_DB_PORT:5432}/${DB_NAME:banking}?currentSchema=${DEFAULT_SCHEMA:auth}
+    username: ${DEV_DB_USERNAME:admin}
+    password: ${DEV_DB_PASSWORD:admin}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      max-lifetime: 2000000
+      connection-timeout: 30000
+  liquibase:
+    change-log: classpath:db.changelog/db.changelog-master.xml
+    default-schema: ${DEFAULT_SCHEMA:auth}
+    liquibase-schema: ${DEFAULT_SCHEMA:auth}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: ${DEFAULT_SCHEMA:auth}
+    database: postgresql
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${DEV_EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
