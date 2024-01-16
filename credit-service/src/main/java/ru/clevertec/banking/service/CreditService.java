@@ -6,12 +6,13 @@ import ru.clevertec.banking.dto.CreditRequest;
 import ru.clevertec.banking.dto.CreditRequestForUpdate;
 import ru.clevertec.banking.dto.CreditResponse;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface CreditService {
     CreditResponse save(CreditRequest request);
 
-    Page<CreditResponse> findByCustomer(UUID customerId, Pageable pageable);
+    List<CreditResponse> findByCustomer(UUID customerId);
 
     CreditResponse findByContractNumber(String contractNumber);
 

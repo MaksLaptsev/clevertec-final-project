@@ -15,6 +15,6 @@ public class CustomErrorDecoder implements ErrorDecoder {
             return new RestApiServerException("Api currency_rate is unavailable", responseStatus);
         } else if (responseStatus.isSameCodeAs(HttpStatus.NOT_FOUND)) {
             return new ResourceNotFoundException("Actual currency rate not found");
-        } else return new Exception("Exception while getting currency rate details");
+        } else return new RestApiServerException("Exception while getting currency rate details",responseStatus);
     }
 }

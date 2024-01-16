@@ -5,10 +5,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import ru.clevertec.banking.entity.Credit;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface CreditRepository extends PagingAndSortingRepository<Credit, String> {
-    Page<Credit> findCreditsByCustomerId(UUID customerId, Pageable pageable);
+    List<Credit> findCreditsByCustomerId(UUID customerId);
 
     Credit findCreditByContractNumber(String contractNumber);
 

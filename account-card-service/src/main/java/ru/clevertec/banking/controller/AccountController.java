@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.clevertec.banking.dto.account.AccountRequest;
 import ru.clevertec.banking.dto.account.AccountRequestForUpdate;
@@ -36,9 +37,10 @@ public class AccountController {
         return service.getAll(pageable);
     }
 
+    //@PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/by-customer-id/{uuid}")
-    public Page<AccountWithCardResponse> findByCustomer(@PathVariable String uuid,@PageableDefault(sort = {"iban"}) Pageable pageable) {
-        return service.findByCustomer(uuid,pageable);
+    public List<AccountWithCardResponse> findByCustomer(@PathVariable String uuid) {
+        return service.findByCustomer(uuid);
     }
 
     @GetMapping("/by-iban/{iban}")

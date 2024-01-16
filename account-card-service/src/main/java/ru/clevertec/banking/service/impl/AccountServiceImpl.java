@@ -18,6 +18,7 @@ import ru.clevertec.banking.repository.AccountRepository;
 import ru.clevertec.banking.repository.specifications.FilterSpecifications;
 import ru.clevertec.banking.service.AccountService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,9 +47,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Page<AccountWithCardResponse> findByCustomer(String uuid, Pageable pageable) {
-        return repository.findAll(specifications.filter(uuid), pageable)
-                .map(acc -> mapper.toResponseWithCards(acc, acc.getCards()));
+    public List<AccountWithCardResponse> findByCustomer(String uuid) {
+        return repository.findAll(specifications.filter(uuid))
+                .stream()
+                .map(acc -> mapper.toResponseWithCards(acc, acc.getCards()))
+                .toList();
 
     }
 

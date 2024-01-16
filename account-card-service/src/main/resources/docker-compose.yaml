@@ -1,13 +1,13 @@
 version: "3.9"
 services:
-  account-card-serviceDB:
+  banking:
     image: postgres:13.3
     environment:
-      POSTGRES_DB: "account-card-service"
+      POSTGRES_DB: "banking"
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "admin"
     ports:
-      - "5555:5432"
+      - "5432:5432"
     deploy:
       resources:
         limits:

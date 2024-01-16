@@ -14,7 +14,7 @@ public interface AccountService {
 
     Page<AccountWithCardResponse> getAll(Pageable pageable);
 
-    Page<AccountWithCardResponse> findByCustomer(String uuid, Pageable pageable);
+    List<AccountWithCardResponse> findByCustomer(String uuid);
 
     AccountResponse findByIban(String iban);
 

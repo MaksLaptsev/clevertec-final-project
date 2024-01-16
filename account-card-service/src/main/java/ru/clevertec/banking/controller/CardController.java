@@ -8,12 +8,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.clevertec.banking.dto.card.CardCurrencyResponse;
 import ru.clevertec.banking.dto.card.CardRequest;
 import ru.clevertec.banking.dto.card.CardRequestForUpdate;
 import ru.clevertec.banking.dto.card.CardResponse;
 import ru.clevertec.banking.service.CardService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/cards")
@@ -39,8 +42,8 @@ public class CardController {
     }
 
     @GetMapping("/by-customer-id/{uuid}")
-    public Page<CardResponse> findByCustomer(@PathVariable String uuid, @PageableDefault(sort = {"iban"}) Pageable pageable) {
-        return service.findByCustomer(uuid, pageable);
+    public List<CardResponse> findByCustomer(@PathVariable String uuid) {
+        return service.findByCustomer(uuid);
     }
 
     @GetMapping("/by-iban/{iban}")

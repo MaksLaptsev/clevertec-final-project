@@ -14,6 +14,7 @@ import ru.clevertec.banking.mapper.CreditMapper;
 import ru.clevertec.banking.repository.CreditRepository;
 import ru.clevertec.banking.service.CreditService;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -35,9 +36,10 @@ public class CreditServiceImpl implements CreditService {
     }
 
     @Override
-    public Page<CreditResponse> findByCustomer(UUID customerId, Pageable pageable) {
-        return repository.findCreditsByCustomerId(customerId, pageable)
-                .map(mapper::toResponse);
+    public List<CreditResponse> findByCustomer(UUID customerId) {
+        return repository.findCreditsByCustomerId(customerId).stream()
+                .map(mapper::toResponse)
+                .toList();
     }
 
     @Override

@@ -1,12 +1,12 @@
 server:
-  port: 8081
+  port: 8750
 spring:
   application:
     name: ACCOUNT-CARD-SERVICE
   profiles:
     active: dev
   datasource:
-    url: jdbc:postgresql://localhost:5555/account-card-service?currentSchema=account_card
+    url: jdbc:postgresql://localhost:5432/account-card-service?currentSchema=account_card
     username: admin
     password: admin
     driver-class-name: org.postgresql.Driver

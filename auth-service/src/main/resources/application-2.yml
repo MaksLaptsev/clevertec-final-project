@@ -1,5 +1,5 @@
 server:
-  port: ${PORT}
+  port: ${PORT:8881}
 spring:
   application:
     name: AUTH-SERVICE
@@ -19,5 +19,5 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        default_schema: ${DEFAULT_SCHEMA}
+        default_schema: ${DEFAULT_SCHEMA:auth}
     database: postgresql

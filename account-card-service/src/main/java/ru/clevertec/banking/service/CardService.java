@@ -17,7 +17,7 @@ public interface CardService {
 
     CardResponse update(CardRequestForUpdate request);
 
-    Page<CardResponse> findByCustomer(String uuid, Pageable pageable);
+    List<CardResponse> findByCustomer(String uuid);
 
     Page<CardResponse> findByIban(String iban, Pageable pageable);
 

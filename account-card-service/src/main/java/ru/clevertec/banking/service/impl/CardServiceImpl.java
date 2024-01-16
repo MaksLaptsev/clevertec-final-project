@@ -20,6 +20,7 @@ import ru.clevertec.banking.repository.specifications.FilterSpecifications;
 import ru.clevertec.banking.service.CardService;
 import ru.clevertec.banking.util.CardBalanceUtils;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,9 +33,10 @@ public class CardServiceImpl implements CardService {
     private final FilterSpecifications<Card> specifications;
 
     @Override
-    public Page<CardResponse> findByCustomer(String uuid, Pageable pageable) {
-        return repository.findAll(specifications.filter(uuid), pageable)
-                .map(mapper::toResponse);
+    public List<CardResponse> findByCustomer(String uuid){
+        return repository.findAll(specifications.filter(uuid)).stream()
+                .map(mapper::toResponse)
+                .toList();
     }
 
     @Override
