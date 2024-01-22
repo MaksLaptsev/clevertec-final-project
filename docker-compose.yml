@@ -89,6 +89,7 @@ services:
       - service-db
       - eureka-server
       - api-gateway
+      - redis-cache
     ports:
       - "8082:8082"
     environment:
@@ -131,6 +132,7 @@ services:
       - service-db
       - eureka-server
       - api-gateway
+      - redis-cache
     ports:
       - "8085:8085"
     environment:
@@ -172,6 +174,24 @@ services:
     networks:
       - clevertec-banking-net
 
+
+  redis-cache:
+    image: redis:7.2.4-alpine
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    command:
+      - /bin/sh
+      - -c
+      - redis-server --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD variable is not set}"
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - clevertec-banking-net
+
+
   account-card-service:
     image: account-card-service:0.0.1
     build:
@@ -206,6 +226,7 @@ services:
     networks:
       - clevertec-banking-net
 
+
 networks:
   clevertec-banking-net:
     driver: bridge
@@ -214,3 +235,4 @@ volumes:
   db-data:
   pgadmin-data:
   rabbitmq-data:
+  redis-data:
