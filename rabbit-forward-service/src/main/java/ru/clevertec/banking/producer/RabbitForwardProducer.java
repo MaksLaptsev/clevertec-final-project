@@ -14,8 +14,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -30,6 +32,7 @@ public class RabbitForwardProducer {
     private String forwardExchange;
     @Value("spring.rabbitmq.producer.config.charsets-name")
     private String charsetsName;
+
 
 
     public RabbitForwardProducer(@Qualifier("forwardTemplate") RabbitTemplate rabbitTemplate, ObjectMapper objectMapper,ApplicationContext context){
