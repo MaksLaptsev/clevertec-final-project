@@ -14,5 +14,6 @@ public class ProducerProperty {
     private int port;
     private String userName;
     private String password;
+    private String charsetsName;
 
 }
