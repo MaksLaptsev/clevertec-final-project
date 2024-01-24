@@ -15,5 +15,4 @@ public class ProducerProperty {
     private String userName;
     private String password;
     private String charsetsName;
-
 }
